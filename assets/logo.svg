@@ -1,9 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
-  <defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#00e5ff"/><stop offset="1" stop-color="#ff3ca6"/></linearGradient></defs>
-  <rect width="120" height="120" rx="20" fill="url(#g)"/>
-  <g transform="translate(18 18)">
-    <circle cx="24" cy="24" r="20" fill="#071021"/>
-    <path d="M12 24c0-6 10-10 12-10s12 4 12 10-10 10-12 10S12 30 12 24z" fill="url(#g)"/>
-    <text x="52" y="44" font-family="Poppins, sans-serif" font-size="18" fill="#071021" font-weight="700">GT</text>
-  </g>
-</svg>
