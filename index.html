@@ -1,24 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gha Top Up - Static Neon Landing</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GhaTopUp — شحن ألعاب</title>
+  <meta name="description" content="متجر شحن ألعاب — تواصل عبر إنستجرام لطلب الشحن والدفع" />
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <div class="wrap">
     <header>
-        <h1>Welcome to Gha Top Up</h1>
-        <p>Your best place for neon-themed top-ups!</p>
+      <div class="logo">
+        <div class="mark">GT</div>
+        <div>
+          <h1>GhaTopUp</h1>
+          <p class="lead">شحن ألعاب — تواصل عبر إنستجرام لإتمام الطلب</p>
+        </div>
+      </div>
+      <div>
+        <button id="open-instagram" class="btn ghost">تواصل على إنستجرام</button>
+      </div>
     </header>
-    <main>
-        <section>
-            <h2>Top-Up Services</h2>
-            <p>Get your credits instantly with our neon-styled platform.</p>
-        </section>
-    </main>
+
+    <section class="products neon-border">
+      <h2>المنتجات</h2>
+      <div class="grid" id="products-grid"></div>
+
+      <hr style="opacity:0.06; margin:16px 0" />
+
+      <div>
+        <h3>طرق الدفع المتاحة</h3>
+        <p class="note">لا تُعرض أي معلومات حسابية هنا — تواصل عبر إنستجرام للحصول على تفاصيل الدفع.</p>
+        <div class="methods" id="methods"></div>
+      </div>
+    </section>
+
+    <aside class="panel neon-border">
+      <h3>السلة</h3>
+      <div id="cart-items"></div>
+      <div class="total">
+        <div>المجموع</div>
+        <div id="cart-total">$0.00</div>
+      </div>
+      <div id="cart-note" class="note"></div>
+      <div style="display:flex;gap:10px; margin-top:12px;">
+        <button id="checkout" class="btn" style="flex:1">إعداد الطلب وفتح إنستجرام</button>
+        <button id="clear-cart" class="btn ghost" style="flex:0">مسح</button>
+      </div>
+      <div style="margin-top:14px">
+        <h4>طرق الدفع</h4>
+        <div class="methods" id="methods-2"></div>
+      </div>
+    </aside>
+
     <footer>
-        <p>© 2025 Gha Top Up. All rights reserved.</p>
+      <p class="note">© 2025 Gha Top Up. كل الحقوق محفوظة.</p>
     </footer>
+  </div>
+
+  <div class="ig-fab" id="ig-fab"><a href="#">IG</a></div>
+  <div class="gear" id="gear" title="لوحة التحكم (اضغط)">⚙</div>
+  <div id="modal-root" style="display:none"></div>
+
+  <script src="js/app.js"></script>
 </body>
 </html>
