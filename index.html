@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GhaTopUp — شحن ألعاب</title>
+  <meta name="description" content="متجر شحن ألعاب — تواصل عبر إنستجرام لطلب الشحن والدفع" />
+
+  <!-- Google font (optional) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#071021; /* deep navy */
+      --card:#071628;
+      --neon-pink: #ff3ca6;
+      --neon-cyan: #00e5ff;
+      --neon-yellow: #ffd700;
+      --glass: rgba(255,255,255,0.04);
+      --muted: #9aa4b2;
+      --accent: linear-gradient(90deg,var(--neon-cyan),var(--neon-pink));
+      font-family: 'Poppins', system-ui, sans-serif;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;background:radial-gradient(1200px 600px at 10% 10%, rgba(0,229,255,0.06), transparent), radial-gradient(900px 500px at 90% 90%, rgba(255,60,166,0.04), transparent), var(--bg); color:#e6f0ff; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      padding:24px;
+    }
+    a{color:inherit}
+
+    /* container */
+    .wrap{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 360px;gap:20px}
+    header{grid-column:1 / -1;display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo .mark{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--neon-pink),var(--neon-cyan));box-shadow:0 6px 20px rgba(0,229,255,0.06);display:flex;align-items:center;justify-content:center;font-weight:800;color:#071021}
+    h1{margin:0;font-size:20px}
+    p.lead{margin:0;color:var(--muted);font-size:13px}
+
+    /* products area */
+    .products{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:14px;padding:18px;box-shadow:0 6px 30px rgba(0,0,0,0.6);}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);position:relative;overflow:hidden}
+    .card .img{height:140px;border-radius:8px;background-size:cover;background-position:center;margin-bottom:10px;box-shadow:inset 0 -30px 60px rgba(7,16,33,0.6)}
+    .card h3{margin:0 0 6px 0;font-size:15px}
+    .price{font-weight:700}
+    .price small{font-weight:400;color:var(--muted);display:block;font-size:12px}
+    .btn{display:inline-block;padding:8px 10px;border-radius:9px;background:var(--neon-pink);color:#071021;font-weight:700;border:none;cursor:pointer}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--neon-cyan)}
+
+    /* neon outline */
+    .neon-border{box-shadow:0 0 12px rgba(0,229,255,0.06), 0 0 40px rgba(255,60,166,0.03);border:1px solid rgba(255,255,255,0.03)}
+
+    /* cart */
+    aside.panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border-radius:14px;padding:18px;height:fit-content}
+    .cart-item{display:flex;gap:10px;align-items:center;border-bottom:1px dashed rgba(255,255,255,0.03);padding:10px 0}
+    .cart-item:last-child{border-bottom:none}
+    .cart-item img{width:64px;height:44px;object-fit:cover;border-radius:8px}
+    .qty{display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);font-weight:700}
+    .total{display:flex;align-items:center;justify-content:space-between;padding:12px 0;font-weight:800}
+    .note{font-size:13px;color:var(--muted)}
+
+    /* payment methods */
+    .methods{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .method{flex:1 1 calc(50% - 10px);min-width:120px;padding:10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent);border:1px solid rgba(255,255,255,0.03);text-align:center}
+    .method .logo{width:36px;height:36px;border-radius:8px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-weight:700}
+
+    /* floating Instagram */
+    .ig-fab{position:fixed;left:24px;bottom:24px;background:linear-gradient(45deg,var(--neon-pink),var(--neon-cyan));width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 40px rgba(255,60,166,0.12);z-index:1000}
+    .ig-fab a{color:#071021;text-decoration:none;font-weight:800}
+
+    /* admin gear */
+    .gear{position:fixed;right:24px;bottom:24px;background:rgba(0,0,0,0.6);border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,0.04)}
+
+    /* modal */
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;padding:24px}
+    .modal .box{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:18px;border-radius:12px;width:100%;max-width:720px}
+
+    footer{grid-column:1 / -1;margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+
+    /* responsive */
+    @media (max-width:900px){.wrap{grid-template-columns:1fr;}.grid{grid-template-columns:repeat(1,1fr)}aside.panel{order:2}} 
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="logo">
+        <div class="mark">GT</div>
+        <div>
+          <h1>GhaTopUp</h1>
+          <p class="lead">شحن ألعاب — تواصل عبر إنستجرام لإتمام الطلب</p>
+        </div>
+      </div>
+      <div>
+        <button id="open-instagram" class="btn ghost">تواصل على إنستجرام</button>
+      </div>
+    </header>
+
+    <!-- products -->
+    <section class="products neon-border">
+      <h2 style="margin:0 0 12px 0">المنتجات</h2>
+      <div class="grid" id="products-grid">
+        <!-- JS will render product cards here -->
+      </div>
+
+      <hr style="opacity:0.06;margin:16px 0">
+      <div>
+        <h3 style="margin:0 0 8px 0">طرق الدفع المتاحة</h3>
+        <p class="note">لا تُعرض أي معلومات حسابية هنا — تواصل عبر إنستجرام للحصول على تفاصيل الدفع.</p>
+        <div class="methods" id="methods">
+          <!-- methods tiles -->
+        </div>
+      </div>
+    </section>
+
+    <!-- aside / cart -->
+    <aside class="panel neon-border">
+      <h3 style="margin-top:0">السلة</h3>
+      <div id="cart-items"></div>
+      <div class="total">
+        <div>المجموع</div>
+        <div id="cart-total">$0.00</div>
+      </div>
+      <div id="cart-note" class="note"></div>
+      <div style="display:flex;gap:10px;margin-top:12px">
+        <button id="checkout" class="btn" style="flex:1">إعداد الطلب وفتح إنستجرام</button>
+        <button id="clear-cart" class="btn ghost" style="flex:0">مسح</button>
+      </div>
+
+      <div style="margin-top:14px">
+        <h4 style="margin:0 0 8px 0">طرق الدفع</h4>
+        <div class="methods" id="methods-2"></div>
+      </div>
+    </aside>
+
+    <footer>
+      <div>ملاحظة: موقع ثابت جاهز للرفع على Netlify. لتعديل اسم الإنستجرام أو كلمات المرور الإدارية، افتح ملف <code>index.html</code> وعدل المتغيرات داخل قسم <code>&lt;script&gt;</code>.</div>
+    </footer>
+  </div>
+
+  <!-- floating instagram button -->
+  <div class="ig-fab" id="ig-fab"><a href="#">IG</a></div>
+  <div class="gear" id="gear" title="لوحة التحكم (اضغط)" style="display:flex;align-items:center;justify-content:center">⚙</div>
+
+  <!-- admin modal placeholder -->
+  <div id="modal-root" style="display:none"></div>
+
+  <script>
+    /*********** CONFIG ***********/
+    // ضع اسم حساب انستجرام هنا (بدون @)
+    const INSTAGRAM_USERNAME = 'abdelghafournaceri'; // <-- غيّره قبل النشر
+
+    // كلمة مرور بسيطة للدخول إلى وضع الإدارة (قم بتغييرها قبل وضع الموقع للعمل)
+    const ADMIN_PASS = 'karak$$moo&a18264827_kool-basterd'; // <-- غيّره
+
+    // قائمة المنتجات الافتراضية (السعر = null يعني غير محدد حتى تقوم بتعيينه في وضع الإدارة)
+    const PRODUCTS = [
+      {id:1, title:'Free Fire — 600 Diamonds', img:'https://picsum.photos/seed/ff600/600/400', price:null},
+      {id:2, title:'PUBG — 300 UC', img:'https://picsum.photos/seed/pubg300/600/400', price:null},
+      {id:3, title:'Steam Wallet $10', img:'https://picsum.photos/seed/steam10/600/400', price:null},
+      {id:4, title:'PSN Card $20', img:'https://picsum.photos/seed/psn20/600/400', price:null}
+    ];
+
+    // طرق الدفع لعرضها فقط
+    const PAYMENT_METHODS = [
+      {key:'skrill', label:'Skrill'},
+      {key:'cash', label:'Cash (دفع كاش)'},
+      {key:'baridi', label:'BaridiMob'},
+      {key:'ccp', label:'CCP'},
+      {key:'redot', label:'RedotPay'},
+      {key:'ooredoo', label:'Ooredoo Flexy'}
+    ];
+
+    /*********** app state ***********/
+    let cart = JSON.parse(localStorage.getItem('cart_v1') || '[]');
+    // load saved prices if the owner set them in admin
+    const savedPrices = JSON.parse(localStorage.getItem('product_prices_v1') || '{}');
+
+    // merge saved prices into PRODUCTS clone
+    const products = PRODUCTS.map(p => ({...p, price: savedPrices[p.id] !== undefined ? savedPrices[p.id] : p.price}));
+
+    /*********** helpers & render ***********/n
+    function formatPrice(p){return '$' + Number(p).toFixed(2);}
+
+    function renderProducts(){
+      const grid = document.getElementById('products-grid');
+      grid.innerHTML = '';
+      products.forEach(p => {
+        const div = document.createElement('div'); div.className='card';
+        div.innerHTML = `
+          <div class="img" style="background-image:url('${p.img}')"></div>
+          <h3>${p.title}</h3>
+          <div class="price">${p.price===null? '<span style="color:#ffb3d9;font-weight:700">سعر غير محدد</span><br><small class="note">سيتم تحديد السعر من البائع</small>' : formatPrice(p.price)}</div>
+          <div style="margin-top:8px;display:flex;gap:8px;align-items:center">
+            <button class="btn" onclick="addToCart(${p.id})">أضف للسلة</button>
+            <button class="btn ghost" onclick="viewDetails(${p.id})">تفاصيل</button>
+          </div>
+        `;
+        grid.appendChild(div);
+      })
+    }
+
+    function renderMethods(){
+      const m1 = document.getElementById('methods');
+      const m2 = document.getElementById('methods-2');
+      m1.innerHTML=''; m2.innerHTML='';
+      PAYMENT_METHODS.forEach(m=>{
+        const el = document.createElement('div'); el.className='method';
+        el.innerHTML = `<div class="logo" style="background:linear-gradient(90deg,var(--neon-cyan),var(--neon-pink));color:#071021">${m.label.charAt(0)}</div><div style="font-weight:700;margin-top:6px">${m.label}</div>`;
+        m1.appendChild(el);
+        const el2 = el.cloneNode(true);
+        m2.appendChild(el2);
+      })
+    }
+
+    function renderCart(){
+      const container = document.getElementById('cart-items');
+      container.innerHTML='';
+      if(cart.length===0){container.innerHTML='<div class="note">السلة فارغة</div>';document.getElementById('cart-total').innerText='$0.00';document.getElementById('cart-note').innerText='';return}
+      let allPricesSet = true;
+      let total = 0;
+      cart.forEach((c, idx) =>{
+        const prod = products.find(p=>p.id===c.id);
+        const priceText = prod.price===null? 'غير محدد' : formatPrice(prod.price);
+        if(prod.price===null) allPricesSet=false; else total += prod.price * c.qty;
+
+        const el = document.createElement('div'); el.className='cart-item';
+        el.innerHTML = `<img src="${prod.img}" alt=""><div style="flex:1"><div style="font-weight:700">${prod.title}</div><div class="note">${priceText} × <span class="qty">${c.qty}</span></div></div><div><button class="btn ghost" onclick="removeFromCart(${idx})">حذف</button></div>`;
+        container.appendChild(el);
+      })
+      document.getElementById('cart-total').innerText = allPricesSet ? formatPrice(total) : '—';
+      document.getElementById('cart-note').innerText = allPricesSet ? '' : 'بعض الأسعار غير محددة — سيتم التواصل عبر الإنستجرام لتأكيد السعر.';
+    }
+
+    function addToCart(id){
+      const found = cart.find(c=>c.id===id);
+      if(found) found.qty++; else cart.push({id,qty:1});
+      localStorage.setItem('cart_v1', JSON.stringify(cart));
+      renderCart();
+      // subtle feedback
+      flashMessage('أضيف إلى السلة');
+    }
+    function removeFromCart(idx){cart.splice(idx,1);localStorage.setItem('cart_v1', JSON.stringify(cart));renderCart();}
+
+    function viewDetails(id){const p = products.find(x=>x.id===id);alert(p.title + '\n\n' + (p.price===null? 'السعر: غير محدد' : 'السعر: '+formatPrice(p.price)))}
+
+    // simple message toast
+    function flashMessage(txt){
+      const t = document.createElement('div'); t.style.position='fixed';t.style.left='50%';t.style.transform='translateX(-50%)';t.style.bottom='96px';t.style.background='rgba(0,0,0,0.6)';t.style.padding='10px 16px';t.style.borderRadius='10px';t.style.border='1px solid rgba(255,255,255,0.04)';t.innerText=txt;document.body.appendChild(t);setTimeout(()=>t.remove(),1700);
+    }
+
+    /*********** checkout (prepare message + open IG) ***********/
+    function prepareOrderMessage(){
+      if(cart.length===0) return null;
+      let allPricesSet=true; let total=0; const lines = [];
+      cart.forEach(c=>{
+        const p = products.find(x=>x.id===c.id);
+        if(p.price===null) allPricesSet=false; else total += p.price*c.qty;
+        lines.push(`${p.title} × ${c.qty} — ${p.price===null? 'السعر غير محدد' : formatPrice(p.price)}`);
+      })
+      const body = `طلب من موقع GhaTopUp\n\n${lines.join('\n')}\n\nالمجموع: ${allPricesSet? formatPrice(total) : 'سعر غير محدد — أتوقع تواصل لتحديد السعر'}\n\nالاسم: \nرقم الهاتف: \nملاحظات:`;
+      return {text:body, allPricesSet, total};
+    }
+
+    document.getElementById('checkout').addEventListener('click', async ()=>{
+      const order = prepareOrderMessage();
+      if(!order) return flashMessage('السلة فارغة');
+      // copy to clipboard
+      try{ await navigator.clipboard.writeText(order.text); flashMessage('نُسِخ ملخص الطلب إلى الحافظة'); }catch(e){ flashMessage('تعذر النسخ تلقائياً — انسخ الملخص يدوياً') }
+      // open instagram profile in new tab
+      const url = 'https://instagram.com/' + INSTAGRAM_USERNAME;
+      window.open(url,'_blank');
+      // show modal with instructions
+      showModal(`تم نسخ ملخص الطلب. افتح الإنستجرام ثم الصق الرسالة في رسالة مباشرة إلى @${INSTAGRAM_USERNAME} لتأكيد الطلب.`);
+    });
+
+    document.getElementById('open-instagram').addEventListener('click', ()=>{window.open('https://instagram.com/' + INSTAGRAM_USERNAME,'_blank')});
+    document.getElementById('ig-fab').addEventListener('click', ()=>{window.open('https://instagram.com/' + INSTAGRAM_USERNAME,'_blank')});
+    document.getElementById('clear-cart').addEventListener('click', ()=>{cart=[];localStorage.setItem('cart_v1','[]');renderCart();});
+
+    /*********** admin: set prices & store in localStorage ***********/
+    document.getElementById('gear').addEventListener('click', ()=>{
+      const pass = prompt('أدخل كلمة المرور للوصول إلى وضع الإدارة:');
+      if(pass===ADMIN_PASS){
+        openAdminModal();
+      } else { flashMessage('كلمة مرور خاطئة'); }
+    });
+
+    function openAdminModal(){
+      const root = document.getElementById('modal-root'); root.style.display='block';
+      root.innerHTML = `
+        <div class="modal">
+          <div class="box">
+            <h3>لوحة الإدارة — تعيين الأسعار</h3>
+            <p class="note">تعديل الأسعار يحفظ محليًا في المتصفح (localStorage). هذا مناسب للنسخة الأولى. لتخزين مركزي استخدم خادمًا لاحقًا.</p>
+            <div style="margin-top:12px">
+              ${products.map(p => `
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+                  <img src="${p.img}" style="width:64px;height:44px;object-fit:cover;border-radius:6px"/>
+                  <div style="flex:1"><div style="font-weight:700">${p.title}</div><input data-id="${p.id}" placeholder="أدخل السعر (دولار) أو اترك فارغًا" style="margin-top:6px;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);width:140px;background:transparent;color:inherit"/></div>
+                </div>
+              `).join('')}
+            </div>
+            <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+              <button id="admin-cancel" class="btn ghost">إلغاء</button>
+              <button id="admin-save" class="btn">حفظ الأسعار</button>
+            </div>
+            <div style="margin-top:10px;text-align:left"><button id="admin-reset" class="btn ghost">إعادة ضبط الأسعار ومسح السلة</button></div>
+          </div>
+        </div>
+      `;
+
+      // populate existing saved prices
+      setTimeout(()=>{
+        const inputs = root.querySelectorAll('input[data-id]');
+        inputs.forEach(inp=>{
+          const id = inp.getAttribute('data-id');
+          if(savedPrices[id]!==undefined) inp.value = savedPrices[id];
+        });
+
+        root.querySelector('#admin-cancel').addEventListener('click', ()=>{root.style.display='none';root.innerHTML='';});
+        root.querySelector('#admin-save').addEventListener('click', ()=>{
+          const newPrices = {};
+          inputs.forEach(inp=>{const id=inp.getAttribute('data-id');const v=inp.value.trim();if(v!==''){const num = Number(v); if(!isNaN(num)) newPrices[id]=num;}});
+          localStorage.setItem('product_prices_v1', JSON.stringify(newPrices));
+          // apply to page
+          for(const pid in newPrices){ const p = products.find(x=>x.id==pid); if(p) p.price = newPrices[pid]; }
+          // update savedPrices variable
+          Object.assign(savedPrices, newPrices);
+          renderProducts(); renderCart(); root.style.display='none'; root.innerHTML=''; flashMessage('تم حفظ الأسعار');
+        });
+        root.querySelector('#admin-reset').addEventListener('click', ()=>{if(confirm('هل تريد مسح الأسعار المحفوظة والسلة؟')){localStorage.removeItem('product_prices_v1');localStorage.removeItem('cart_v1');location.reload();}})
+      },50);
+    }
+
+    /*********** basic modal for user messages ***********/
+    function showModal(html){
+      const r = document.getElementById('modal-root'); r.style.display='block'; r.innerHTML = `
+        <div class="modal"><div class="box"><div>${html}</div><div style="text-align:right;margin-top:12px"><button id="modal-close" class="btn">حسناً</button></div></div></div>
+      `; r.querySelector('#modal-close').addEventListener('click', ()=>{r.style.display='none';r.innerHTML=''});
+    }
+
+    // initial render
+    renderProducts(); renderMethods(); renderCart();
+
+    // small note: instruct user to change INSTAGRAM_USERNAME variable
+    console.log('تعديل INSTAGRAM_USERNAME داخل index.html لربط حسابك.');
+  </script>
+</body>
+</html>
